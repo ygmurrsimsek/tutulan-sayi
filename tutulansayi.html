@@ -1,0 +1,72 @@
+<div>
+    <input type="text" id="data">
+    <button type="button" onclick="errors()">ŞANSINI DENE</button>
+    <button type="button" onclick="baslat()">BAŞLAT</button>
+    <p class="text-success" id="text-success"></p>
+    <p class="text-danger" id="text-danger"></p>
+    <p id="sayim">Hakkiniz:</p>
+    <p id="result"></p>
+    <p id="result3"></p>
+    <p id="result2"></p>
+</div>
+
+
+<script>
+    function random(){
+        var tutulan= Math.floor(Math.random()*11);
+        return tutulan;
+    }
+    tutulan=random();
+    document.getElementById('result2').innerHTML=tutulan;
+    deneme=3;
+    document.getElementById('sayim').innerHTML= "Hakkiniz:"+deneme
+    function errors(){
+        var message,girilen;
+        girilen= document.getElementById('data').value;
+        message=document.getElementById('result');
+        message.innerHTML=""; 
+        try{
+            if(deneme!=1){ 
+                if(girilen==""){
+                document.getElementById('text-danger').innerHTML= "Bu alani bos birakamazsiniz."
+                }
+                else if(isNaN(girilen)){
+                    document.getElementById('text-danger').innerHTML="Bu alana sadece sayi girmelisiniz."
+                }
+                else if(girilen>10 || girilen<0){
+                    document.getElementById('text-danger').innerHTML="belirlenen aralikta bir sayi değeri giriniz."
+                }
+                girilen=Number(girilen);
+                if(girilen!=0 && girilen==tutulan){
+                    document.getElementById('text-success').innerHTML="Tebrikler bildiğiniz sayi doğru."
+                }
+                else if(0<girilen && girilen<tutulan){
+                    document.getElementById('text-danger').innerHTML="Girdiginiz sayi tutulan sayidan kücüktür."
+                    deneme-=1;
+                }
+                else if(10>girilen && girilen>tutulan){
+                    document.getElementById('text-danger').innerHTML="Girdiginiz sayi tutulan sayidan büyüktür."
+                    deneme-=1;
+                }
+                document.getElementById('sayim').innerHTML= "Hakkiniz:"+deneme
+            }
+            else{ 
+                document.getElementById('text-danger').innerHTML="Deneme hakkiniz bitti."
+                deneme=3;
+                tutulan=random();
+                /*
+                document.getElementById('result2').innerHTML = tutulan;
+                document.getElementById('text-danger').innerHTML="";*/
+            } 
+        }   
+        catch(e){
+        message.innerHTML=e;
+        }
+        finally{
+        /*bu kod try cath bittiğinde bu kullanicidan alinan kismin boşalmasini sağlayalim*/
+            document.getElementById('data').value="";
+        }
+    }
+</script>   
+</body>
+</html>
